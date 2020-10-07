@@ -6,14 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>868</width>
-    <height>572</height>
+    <width>660</width>
+    <height>500</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>660</width>
+    <height>500</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>16777215</height>
+    </size>
+   </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
@@ -22,10 +34,10 @@
       </property>
       <widget class="QWidget" name="tab_audioInput">
        <attribute name="title">
-        <string>Input settings</string>
+        <string>Input device</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
            <widget class="QLabel" name="lbl_inDeviceName">
@@ -53,7 +65,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="cb_inDeviceName">
+           <widget class="QComboBox" name="cb_inDeviceList">
             <property name="sizePolicy">
              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -75,44 +87,59 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
             </property>
-            <property name="minimumSize">
+            <property name="sizeHint" stdset="0">
              <size>
-              <width>80</width>
-              <height>0</height>
+              <width>20</width>
+              <height>40</height>
              </size>
             </property>
-            <property name="maximumSize">
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
              <size>
-              <width>80</width>
-              <height>16777215</height>
+              <width>20</width>
+              <height>20</height>
              </size>
             </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_inDeviceApply">
             <property name="text">
-             <string>PushButton</string>
+             <string>Apply</string>
             </property>
            </widget>
           </item>
          </layout>
         </item>
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
+        <item row="0" column="1">
+         <widget class="QGroupBox" name="gb_inDeviceSettings">
+          <property name="minimumSize">
            <size>
-            <width>20</width>
-            <height>40</height>
+            <width>200</width>
+            <height>360</height>
            </size>
           </property>
-         </spacer>
+          <property name="title">
+           <string>Input device settings:</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -120,32 +147,6 @@
        <attribute name="title">
         <string>Output settings</string>
        </attribute>
-       <widget class="QWidget" name="">
-        <property name="geometry">
-         <rect>
-          <x>9</x>
-          <y>232</y>
-          <width>130</width>
-          <height>25</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QPushButton" name="pushButton_2">
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
       </widget>
      </widget>
     </item>
@@ -156,7 +157,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>868</width>
+     <width>660</width>
      <height>21</height>
     </rect>
    </property>
