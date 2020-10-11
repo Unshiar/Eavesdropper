@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
+    <width>551</width>
     <height>495</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>450</width>
+    <width>551</width>
     <height>495</height>
    </size>
   </property>
@@ -73,7 +73,7 @@
           <item>
            <widget class="QComboBox" name="cb_inDeviceList">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -86,7 +86,7 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>200</width>
+              <width>300</width>
               <height>16777215</height>
              </size>
             </property>
@@ -144,7 +144,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>200</width>
+            <width>300</width>
             <height>16777215</height>
            </size>
           </property>
@@ -372,7 +372,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>450</width>
+     <width>551</width>
      <height>21</height>
     </rect>
    </property>
