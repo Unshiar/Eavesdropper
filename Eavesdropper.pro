@@ -16,12 +16,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    InputDevices.cpp \
+    InputDevice.cpp \
     main.cpp \
     MainWindow.cpp
 
 HEADERS += \
-    InputDevices.h \
+    InputDevice.h \
     MainWindow.h
 
 FORMS += \
