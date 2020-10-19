@@ -9,6 +9,7 @@ class InputDevice : public QAudioDeviceInfo
 {
 public:
     InputDevice();
+    InputDevice(const QAudioDeviceInfo &other);
 
     QAudioFormat &audioFormat();//доступ к аудиоформату устройства
 

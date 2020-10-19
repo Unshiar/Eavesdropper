@@ -1,6 +1,13 @@
 #include "InputDevice.h"
 
-InputDevice::InputDevice()
+InputDevice::InputDevice() :
+    QAudioDeviceInfo()
+{
+    m_audioFormat = preferredFormat();
+}
+
+InputDevice::InputDevice(const QAudioDeviceInfo &other) :
+    QAudioDeviceInfo(other)
 {
     m_audioFormat = preferredFormat();
 }
