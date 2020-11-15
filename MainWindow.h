@@ -20,11 +20,17 @@ public:
 private slots:
     void setCurInputDevice(int deviceIdx);//задаем текущее аудиоустройство из списка
     void setSampleRate(int sampleRateIdx);//задаем SampleRate для текущего аудиоустройства
+    void setChannelCount(int channelIdx);//задаем ChannelCount для текущего аудиоустройства
+    void setSampleSize(int sampleSizeIdx);//задаем SampleSize для текущего аудиоустройства
 
 private:
     void refreshInputDevices();//обновляем список входных аудиоустройств
     void fillDeviceSampleRates();//заполняем список поддерживаемых SampleRates для текущего аудиоустройства
     void selectDeviceSampleRate();//показываем выбранное SampleRate для текущего аудиоустройства
+    void fillDeviceChannels();//заполняем список поддерживаемых ChannelCount для текущего аудиоустройства
+    void selectDeviceChannels();//показываем выбранное ChannelCount для текущего аудиоустройства
+    void fillDeviceSampleSize();//заполняем список поддерживаемых SampleSize для текущего аудиоустройства
+    void selectDeviceSampleSize();//показываем выбранное SampleSize для текущего аудиоустройства
 
     Ui::MainWindow *ui;
     QList<InputDevice> m_inputDevices;//список входных аудиоустройств
