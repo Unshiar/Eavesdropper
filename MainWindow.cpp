@@ -1,8 +1,6 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
-#include <QAudioDeviceInfo>
-#include <QMessageBox>
 #include <QString>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -16,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->cb_sampleRates, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleRate(int)));
     connect(ui->cb_channelCount, SIGNAL(currentIndexChanged(int)), this, SLOT(setChannelCount(int)));
     connect(ui->cb_sampleSizes, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleSize(int)));
+    connect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
 
     refreshInputDevices();
 }
@@ -38,6 +37,9 @@ void MainWindow::setCurInputDevice(int deviceIdx)
 
     fillDeviceSampleSize();
     selectDeviceSampleSize();
+
+    fillDeviceSampleType();
+    selectDeviceSampleType();
 }
 
 //задаем SampleRate для текущего аудиоустройства
@@ -57,12 +59,19 @@ void MainWindow::setSampleSize(int sampleSizeIdx)
     m_inputDevices[m_curDeviceIdx].audioFormat().setSampleSize(ui->cb_sampleSizes->itemText(sampleSizeIdx).toInt());
 }
 
+//задаем SampleType для текущего аудиоустройства
+void MainWindow::setSampleType(int sampleTypeIdx)
+{
+    QAudioFormat::SampleType sampleType = static_cast<QAudioFormat::SampleType>(m_inputDevices[m_curDeviceIdx].getSampleTypeMap().key(ui->cb_sampleType->itemText(sampleTypeIdx)));
+    m_inputDevices[m_curDeviceIdx].audioFormat().setSampleType(sampleType);
+}
+
 //обновляем список входных аудиоустройств
 void MainWindow::refreshInputDevices()
 {
     m_inputDevices.clear();
 
-    for(auto device : QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+    for(auto device : InputDevice::availableDevices(QAudio::AudioInput))
         m_inputDevices.append(device);
 
     if(m_inputDevices.isEmpty())
@@ -122,7 +131,7 @@ void MainWindow::selectDeviceChannels()
 
     int channelCount = m_inputDevices[m_curDeviceIdx].audioFormat().channelCount();
 
-    for(int idx = 0; idx < ui->cb_channelCount->count(); ++ idx)
+    for(int idx = 0; idx < ui->cb_channelCount->count(); ++idx)
         if(channelCount == ui->cb_channelCount->itemText(idx).toInt())
         {
             ui->cb_channelCount->setCurrentIndex(idx);
@@ -152,7 +161,7 @@ void MainWindow::selectDeviceSampleSize()
 
     int sampleSize = m_inputDevices[m_curDeviceIdx].audioFormat().sampleSize();
 
-    for(int idx = 0; idx < ui->cb_channelCount->count(); ++ idx)
+    for(int idx = 0; idx < ui->cb_channelCount->count(); ++idx)
         if(sampleSize == ui->cb_sampleSizes->itemText(idx).toInt())
         {
             ui->cb_sampleSizes->setCurrentIndex(idx);
@@ -160,6 +169,38 @@ void MainWindow::selectDeviceSampleSize()
         }
 
     connect(ui->cb_sampleSizes, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleSize(int)));
+}
+
+//заполняем список поддерживаемых SampleType для текущего аудиоустройства
+void MainWindow::fillDeviceSampleType()
+{
+    disconnect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
+
+    ui->cb_sampleType->clear();
+
+    for(auto sampleType : m_inputDevices.at(m_curDeviceIdx).supportedSampleTypes())
+    {
+        ui->cb_sampleType->addItem(m_inputDevices.at(m_curDeviceIdx).getSampleTypeMap()[sampleType]);
+    }
+
+    connect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
+}
+
+//показываем выбранное SampleType для текущего аудиоустройства
+void MainWindow::selectDeviceSampleType()
+{
+    disconnect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
+
+    int sampleType = m_inputDevices[m_curDeviceIdx].audioFormat().sampleType();
+
+    for(int idx = 0; idx < ui->cb_sampleType->count(); ++idx)
+        if(sampleType == m_inputDevices[m_curDeviceIdx].getSampleTypeMap().key(ui->cb_sampleType->itemText(idx)))
+        {
+            ui->cb_sampleType->setCurrentIndex(idx);
+            break;
+        }
+
+    connect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
 }
 
 
