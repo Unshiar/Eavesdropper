@@ -62,7 +62,7 @@ void MainWindow::setSampleSize(int sampleSizeIdx)
 //задаем SampleType для текущего аудиоустройства
 void MainWindow::setSampleType(int sampleTypeIdx)
 {
-    QAudioFormat::SampleType sampleType = static_cast<QAudioFormat::SampleType>(m_inputDevices[m_curDeviceIdx].getSampleTypeMap().key(ui->cb_sampleType->itemText(sampleTypeIdx)));
+    QAudioFormat::SampleType sampleType = static_cast<QAudioFormat::SampleType>(m_inputDevices.at(m_curDeviceIdx).getSampleTypeMap().key(ui->cb_sampleType->itemText(sampleTypeIdx)));
     m_inputDevices[m_curDeviceIdx].audioFormat().setSampleType(sampleType);
 }
 
@@ -194,7 +194,7 @@ void MainWindow::selectDeviceSampleType()
     int sampleType = m_inputDevices[m_curDeviceIdx].audioFormat().sampleType();
 
     for(int idx = 0; idx < ui->cb_sampleType->count(); ++idx)
-        if(sampleType == m_inputDevices[m_curDeviceIdx].getSampleTypeMap().key(ui->cb_sampleType->itemText(idx)))
+        if(sampleType == m_inputDevices.at(m_curDeviceIdx).getSampleTypeMap().key(ui->cb_sampleType->itemText(idx)))
         {
             ui->cb_sampleType->setCurrentIndex(idx);
             break;
