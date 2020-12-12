@@ -180,7 +180,7 @@ void MainWindow::fillDeviceSampleType()
 
     for(auto sampleType : m_inputDevices.at(m_curDeviceIdx).supportedSampleTypes())
     {
-        ui->cb_sampleType->addItem(m_inputDevices.at(m_curDeviceIdx).getSampleTypeMap()[sampleType]);
+        ui->cb_sampleType->addItem(m_inputDevices.at(m_curDeviceIdx).getSampleTypeMap().value(sampleType));
     }
 
     connect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
