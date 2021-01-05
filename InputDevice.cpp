@@ -5,6 +5,7 @@ InputDevice::InputDevice() :
 {
     m_audioFormat = preferredFormat();
     fillSampleTypeMap();
+    fillByteOrderMap();
 }
 
 InputDevice::InputDevice(const QAudioDeviceInfo &other) :
@@ -12,6 +13,7 @@ InputDevice::InputDevice(const QAudioDeviceInfo &other) :
 {
     m_audioFormat = preferredFormat();
     fillSampleTypeMap();
+    fillByteOrderMap();
 }
 
 //доступ к аудиоформату устройства
@@ -20,10 +22,16 @@ QAudioFormat &InputDevice::audioFormat()
     return m_audioFormat;
 }
 
-//получить QAudioFormat::SampleType в виде коньейнера map
+//получить enum QAudioFormat::SampleType в виде контейнера map
 const QMap<int, QString> &InputDevice::getSampleTypeMap() const
 {
     return m_sampleType;
+}
+
+//получить enum QAudioFormat::Endian в виде контейнера map
+const QMap<int, QString> &InputDevice::getByteOrderMap() const
+{
+    return m_byteOrder;
 }
 
 //заполняем контейнер для QAudioFormat::SampleType
@@ -45,6 +53,24 @@ void InputDevice::fillSampleTypeMap()
             break;
 
         default: m_sampleType[sampleType] = "Undefined";
+            break;
+        }
+    }
+}
+
+//заполняем контейнер для QAudioFormat::Endian
+void InputDevice::fillByteOrderMap()
+{
+    for(auto &byteOrder : supportedByteOrders())
+    {
+        switch (static_cast<QSysInfo::Endian>(byteOrder)) {
+        case QSysInfo::BigEndian: m_byteOrder[byteOrder] = "BigEndian";
+            break;
+
+        case QSysInfo::LittleEndian: m_byteOrder[byteOrder] = "LittleEndian";
+            break;
+
+        default:
             break;
         }
     }

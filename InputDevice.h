@@ -2,9 +2,7 @@
 #define MYINPUTDEVICES_H
 
 #include <QAudioDeviceInfo>
-#include <QAudioFormat>
 #include <QMap>
-#include <QObject>
 
 class InputDevice : public QAudioDeviceInfo
 {
@@ -13,12 +11,15 @@ public:
     InputDevice(const QAudioDeviceInfo &other);
 
     QAudioFormat &audioFormat();//доступ к аудиоформату устройства
-    const QMap<int, QString> &getSampleTypeMap() const;//получить QAudioFormat::SampleType в виде коньейнера map
+    const QMap<int, QString> &getSampleTypeMap() const;//получить enum QAudioFormat::SampleType в виде контейнера map
+    const QMap<int, QString> &getByteOrderMap()const; //получить enum QAudioFormat::Endian в виде контейнера map
 
 private:
     void fillSampleTypeMap();//заполняем контейнер для QAudioFormat::SampleType
+    void fillByteOrderMap();//заполняем контейнер для QAudioFormat::Endian
     QAudioFormat m_audioFormat;
     QMap<int, QString> m_sampleType;
+    QMap<int, QString> m_byteOrder;
 };
 
 #endif // MYINPUTDEVICES_H

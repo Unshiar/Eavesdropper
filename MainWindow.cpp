@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->cb_channelCount, SIGNAL(currentIndexChanged(int)), this, SLOT(setChannelCount(int)));
     connect(ui->cb_sampleSizes, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleSize(int)));
     connect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
+    connect(ui->cb_byteOrder, SIGNAL(currentIndexChanged(int)), this, SLOT(setByteOrder(int)));
 
     refreshInputDevices();
 }
@@ -40,6 +41,9 @@ void MainWindow::setCurInputDevice(int deviceIdx)
 
     fillDeviceSampleType();
     selectDeviceSampleType();
+
+    fillDeviceByteOrder();
+    selectDeviceByteOrder();
 }
 
 //задаем SampleRate для текущего аудиоустройства
@@ -64,6 +68,13 @@ void MainWindow::setSampleType(int sampleTypeIdx)
 {
     QAudioFormat::SampleType sampleType = static_cast<QAudioFormat::SampleType>(m_inputDevices.at(m_curDeviceIdx).getSampleTypeMap().key(ui->cb_sampleType->itemText(sampleTypeIdx)));
     m_inputDevices[m_curDeviceIdx].audioFormat().setSampleType(sampleType);
+}
+
+//задаем ByteOrder для текущего аудиоустройства
+void MainWindow::setByteOrder(int byteOrderIdx)
+{
+    QAudioFormat::Endian byteOrder = static_cast<QAudioFormat::Endian>(m_inputDevices.at(m_curDeviceIdx).getByteOrderMap().key(ui->cb_byteOrder->itemText(byteOrderIdx)));
+    m_inputDevices[m_curDeviceIdx].audioFormat().setByteOrder(byteOrder);
 }
 
 //обновляем список входных аудиоустройств
@@ -203,6 +214,39 @@ void MainWindow::selectDeviceSampleType()
         }
 
     connect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
+}
+
+//заполняем список поддерживаемых ByteOrder для текущего аудиоустройства
+void MainWindow::fillDeviceByteOrder()
+{
+    disconnect(ui->cb_byteOrder, SIGNAL(currentIndexChanged(int)), this, SLOT(setByteOrder(int)));
+
+    ui->cb_byteOrder->clear();
+
+    const QList<QAudioFormat::Endian> supportedByteOrders = m_inputDevices.at(m_curDeviceIdx).supportedByteOrders();
+    for(auto byteOrder : supportedByteOrders)
+        ui->cb_byteOrder->addItem(m_inputDevices.at(m_curDeviceIdx).getByteOrderMap().value(byteOrder));
+
+    connect(ui->cb_byteOrder, SIGNAL(currentIndexChanged(int)), this, SLOT(setByteOrder(int)));
+}
+
+//показываем выбранное ByteOrder для текущего аудиоустройства
+void MainWindow::selectDeviceByteOrder()
+{
+    disconnect(ui->cb_byteOrder, SIGNAL(currentIndexChanged(int)), this, SLOT(setByteOrder(int)));
+
+    int byteOrder = m_inputDevices[m_curDeviceIdx].audioFormat().byteOrder();
+
+    for(int idx = 0; idx < ui->cb_byteOrder->count(); ++idx)
+    {
+        if(byteOrder == m_inputDevices.at(m_curDeviceIdx).getByteOrderMap().key(ui->cb_byteOrder->itemText(idx)))
+        {
+            ui->cb_byteOrder->setCurrentIndex(idx);
+            break;
+        }
+    }
+
+    connect(ui->cb_byteOrder, SIGNAL(currentIndexChanged(int)), this, SLOT(setByteOrder(int)));
 }
 
 
