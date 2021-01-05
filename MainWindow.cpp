@@ -71,7 +71,7 @@ void MainWindow::refreshInputDevices()
 {
     m_inputDevices.clear();
 
-    for(auto device : InputDevice::availableDevices(QAudio::AudioInput))
+    for(auto &device : InputDevice::availableDevices(QAudio::AudioInput))
         m_inputDevices.append(device);
 
     if(m_inputDevices.isEmpty())
@@ -88,7 +88,8 @@ void MainWindow::fillDeviceSampleRates()
 
     ui->cb_sampleRates->clear();
 
-    for(auto sampleRate : m_inputDevices.at(m_curDeviceIdx).supportedSampleRates())
+    const QList<int> supportedSampleRates = m_inputDevices.at(m_curDeviceIdx).supportedSampleRates();
+    for(auto sampleRate : supportedSampleRates)
         ui->cb_sampleRates->addItem(QString::number(sampleRate));
 
     connect(ui->cb_sampleRates, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleRate(int)));
@@ -118,7 +119,8 @@ void MainWindow::fillDeviceChannels()
 
     ui->cb_channelCount->clear();
 
-    for(auto channelCount : m_inputDevices.at(m_curDeviceIdx).supportedChannelCounts())
+    const QList<int> supportedChannelCounts = m_inputDevices.at(m_curDeviceIdx).supportedChannelCounts();
+    for(auto channelCount : supportedChannelCounts)
         ui->cb_channelCount->addItem(QString::number(channelCount));
 
     connect(ui->cb_channelCount, SIGNAL(currentIndexChanged(int)), this, SLOT(setChannelCount(int)));
@@ -148,7 +150,8 @@ void MainWindow::fillDeviceSampleSize()
 
     ui->cb_sampleSizes->clear();
 
-    for(auto sampleSize : m_inputDevices.at(m_curDeviceIdx).supportedSampleSizes())
+    const QList<int> supportedSampleSizes = m_inputDevices.at(m_curDeviceIdx).supportedSampleSizes();
+    for(auto sampleSize : supportedSampleSizes)
         ui->cb_sampleSizes->addItem(QString::number(sampleSize));
 
     connect(ui->cb_sampleSizes, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleSize(int)));
@@ -178,10 +181,9 @@ void MainWindow::fillDeviceSampleType()
 
     ui->cb_sampleType->clear();
 
-    for(auto sampleType : m_inputDevices.at(m_curDeviceIdx).supportedSampleTypes())
-    {
+    const QList<QAudioFormat::SampleType> supportedSampleTypes = m_inputDevices.at(m_curDeviceIdx).supportedSampleTypes();
+    for(auto sampleType : supportedSampleTypes)
         ui->cb_sampleType->addItem(m_inputDevices.at(m_curDeviceIdx).getSampleTypeMap().value(sampleType));
-    }
 
     connect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
 }

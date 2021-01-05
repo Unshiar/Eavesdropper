@@ -29,8 +29,7 @@ const QMap<int, QString> &InputDevice::getSampleTypeMap() const
 //заполняем контейнер для QAudioFormat::SampleType
 void InputDevice::fillSampleTypeMap()
 {
-    QString sampleTypeName("Undefined");
-    for(auto sampleType : supportedSampleTypes())
+    for(auto &sampleType : supportedSampleTypes())
     {
         switch (sampleType) {
         case 0: m_sampleType[sampleType] = "Unknown";
