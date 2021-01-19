@@ -25,7 +25,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//задаем текущее аудиоустройство из списка
 void MainWindow::setCurInputDevice(int deviceIdx)
 {
     m_curDeviceIdx = deviceIdx;
@@ -46,7 +45,6 @@ void MainWindow::setCurInputDevice(int deviceIdx)
     selectDeviceByteOrder();
 }
 
-//задаем SampleRate для текущего аудиоустройства
 void MainWindow::setSampleRate(int sampleRateIdx)
 {
     m_inputDevices[m_curDeviceIdx].audioFormat().setSampleRate(ui->cb_sampleRates->itemText(sampleRateIdx).toInt());
@@ -57,27 +55,23 @@ void MainWindow::setChannelCount(int channelIdx)
     m_inputDevices[m_curDeviceIdx].audioFormat().setChannelCount(ui->cb_channelCount->itemText(channelIdx).toInt());
 }
 
-//задаем SampleSize для текущего аудиоустройства
 void MainWindow::setSampleSize(int sampleSizeIdx)
 {
     m_inputDevices[m_curDeviceIdx].audioFormat().setSampleSize(ui->cb_sampleSizes->itemText(sampleSizeIdx).toInt());
 }
 
-//задаем SampleType для текущего аудиоустройства
 void MainWindow::setSampleType(int sampleTypeIdx)
 {
     QAudioFormat::SampleType sampleType = static_cast<QAudioFormat::SampleType>(m_inputDevices.at(m_curDeviceIdx).getSampleTypeMap().key(ui->cb_sampleType->itemText(sampleTypeIdx)));
     m_inputDevices[m_curDeviceIdx].audioFormat().setSampleType(sampleType);
 }
 
-//задаем ByteOrder для текущего аудиоустройства
 void MainWindow::setByteOrder(int byteOrderIdx)
 {
     QAudioFormat::Endian byteOrder = static_cast<QAudioFormat::Endian>(m_inputDevices.at(m_curDeviceIdx).getByteOrderMap().key(ui->cb_byteOrder->itemText(byteOrderIdx)));
     m_inputDevices[m_curDeviceIdx].audioFormat().setByteOrder(byteOrder);
 }
 
-//обновляем список входных аудиоустройств
 void MainWindow::refreshInputDevices()
 {
     m_inputDevices.clear();
@@ -92,7 +86,6 @@ void MainWindow::refreshInputDevices()
         ui->cb_inDeviceList->addItem(device.deviceName());
 }
 
-//заполняем список поддерживаемых SampleRates для текущего аудиоустройства
 void MainWindow::fillDeviceSampleRates()
 {
     disconnect(ui->cb_sampleRates, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleRate(int)));
@@ -106,7 +99,6 @@ void MainWindow::fillDeviceSampleRates()
     connect(ui->cb_sampleRates, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleRate(int)));
 }
 
-//показываем выбранное SampleRate для текущего аудиоустройства
 void MainWindow::selectDeviceSampleRate()
 {
     disconnect(ui->cb_sampleRates, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleRate(int)));
@@ -123,7 +115,6 @@ void MainWindow::selectDeviceSampleRate()
     connect(ui->cb_sampleRates, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleRate(int)));
 }
 
-//заполняем список поддерживаемых ChannelCount для текущего аудиоустройства
 void MainWindow::fillDeviceChannels()
 {
     disconnect(ui->cb_channelCount, SIGNAL(currentIndexChanged(int)), this, SLOT(setChannelCount(int)));
@@ -137,7 +128,6 @@ void MainWindow::fillDeviceChannels()
     connect(ui->cb_channelCount, SIGNAL(currentIndexChanged(int)), this, SLOT(setChannelCount(int)));
 }
 
-//показываем выбранное ChannelCount для текущего аудиоустройства
 void MainWindow::selectDeviceChannels()
 {
     disconnect(ui->cb_channelCount, SIGNAL(currentIndexChanged(int)), this, SLOT(setChannelCount(int)));
@@ -154,7 +144,6 @@ void MainWindow::selectDeviceChannels()
     connect(ui->cb_channelCount, SIGNAL(currentIndexChanged(int)), this, SLOT(setChannelCount(int)));
 }
 
-//заполняем список поддерживаемых SampleSize для текущего аудиоустройства
 void MainWindow::fillDeviceSampleSize()
 {
     disconnect(ui->cb_sampleSizes, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleSize(int)));
@@ -168,7 +157,6 @@ void MainWindow::fillDeviceSampleSize()
     connect(ui->cb_sampleSizes, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleSize(int)));
 }
 
-//показываем выбранное SampleSize для текущего аудиоустройства
 void MainWindow::selectDeviceSampleSize()
 {
     disconnect(ui->cb_sampleSizes, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleSize(int)));
@@ -185,7 +173,6 @@ void MainWindow::selectDeviceSampleSize()
     connect(ui->cb_sampleSizes, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleSize(int)));
 }
 
-//заполняем список поддерживаемых SampleType для текущего аудиоустройства
 void MainWindow::fillDeviceSampleType()
 {
     disconnect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
@@ -199,7 +186,6 @@ void MainWindow::fillDeviceSampleType()
     connect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
 }
 
-//показываем выбранное SampleType для текущего аудиоустройства
 void MainWindow::selectDeviceSampleType()
 {
     disconnect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
@@ -216,7 +202,6 @@ void MainWindow::selectDeviceSampleType()
     connect(ui->cb_sampleType, SIGNAL(currentIndexChanged(int)), this, SLOT(setSampleType(int)));
 }
 
-//заполняем список поддерживаемых ByteOrder для текущего аудиоустройства
 void MainWindow::fillDeviceByteOrder()
 {
     disconnect(ui->cb_byteOrder, SIGNAL(currentIndexChanged(int)), this, SLOT(setByteOrder(int)));
@@ -230,7 +215,6 @@ void MainWindow::fillDeviceByteOrder()
     connect(ui->cb_byteOrder, SIGNAL(currentIndexChanged(int)), this, SLOT(setByteOrder(int)));
 }
 
-//показываем выбранное ByteOrder для текущего аудиоустройства
 void MainWindow::selectDeviceByteOrder()
 {
     disconnect(ui->cb_byteOrder, SIGNAL(currentIndexChanged(int)), this, SLOT(setByteOrder(int)));
@@ -248,6 +232,3 @@ void MainWindow::selectDeviceByteOrder()
 
     connect(ui->cb_byteOrder, SIGNAL(currentIndexChanged(int)), this, SLOT(setByteOrder(int)));
 }
-
-
-

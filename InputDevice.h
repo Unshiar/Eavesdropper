@@ -10,13 +10,13 @@ public:
     InputDevice();
     InputDevice(const QAudioDeviceInfo &other);
 
-    QAudioFormat &audioFormat();//доступ к аудиоформату устройства
-    const QMap<int, QString> &getSampleTypeMap() const;//получить enum QAudioFormat::SampleType в виде контейнера map
-    const QMap<int, QString> &getByteOrderMap()const; //получить enum QAudioFormat::Endian в виде контейнера map
+    QAudioFormat &audioFormat();
+    const QMap<int, QString> &getSampleTypeMap() const;
+    const QMap<int, QString> &getByteOrderMap()const;
 
 private:
-    void fillSampleTypeMap();//заполняем контейнер для QAudioFormat::SampleType
-    void fillByteOrderMap();//заполняем контейнер для QAudioFormat::Endian
+    void fillSampleTypeMap();
+    void fillByteOrderMap();
     QAudioFormat m_audioFormat;
     QMap<int, QString> m_sampleType;
     QMap<int, QString> m_byteOrder;

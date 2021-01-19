@@ -18,25 +18,25 @@ public:
     ~MainWindow();
 
 private slots:
-    void setCurInputDevice(int deviceIdx);//задаем текущее аудиоустройство из списка
-    void setSampleRate(int sampleRateIdx);//задаем SampleRate для текущего аудиоустройства
-    void setChannelCount(int channelIdx);//задаем ChannelCount для текущего аудиоустройства
-    void setSampleSize(int sampleSizeIdx);//задаем SampleSize для текущего аудиоустройства
-    void setSampleType(int sampleTypeIdx);//задаем SampleType для текущего аудиоустройства
-    void setByteOrder(int byteOrderIdx);//задаем ByteOrder для текущего аудиоустройства
+    void setCurInputDevice(int deviceIdx);
+    void setSampleRate(int sampleRateIdx);
+    void setChannelCount(int channelIdx);
+    void setSampleSize(int sampleSizeIdx);
+    void setSampleType(int sampleTypeIdx);
+    void setByteOrder(int byteOrderIdx);
 
 private:
-    void refreshInputDevices();//обновляем список входных аудиоустройств
-    void fillDeviceSampleRates();//заполняем список поддерживаемых SampleRates для текущего аудиоустройства
-    void selectDeviceSampleRate();//показываем выбранное SampleRate для текущего аудиоустройства
-    void fillDeviceChannels();//заполняем список поддерживаемых ChannelCount для текущего аудиоустройства
-    void selectDeviceChannels();//показываем выбранное ChannelCount для текущего аудиоустройства
-    void fillDeviceSampleSize();//заполняем список поддерживаемых SampleSize для текущего аудиоустройства
-    void selectDeviceSampleSize();//показываем выбранное SampleSize для текущего аудиоустройства
-    void fillDeviceSampleType();//заполняем список поддерживаемых SampleType для текущего аудиоустройства
-    void selectDeviceSampleType();//показываем выбранное SampleType для текущего аудиоустройства
-    void fillDeviceByteOrder();//заполняем список поддерживаемых ByteOrder для текущего аудиоустройства
-    void selectDeviceByteOrder();//показываем выбранное ByteOrder для текущего аудиоустройства
+    void refreshInputDevices();
+    void fillDeviceSampleRates();
+    void selectDeviceSampleRate();
+    void fillDeviceChannels();
+    void selectDeviceChannels();
+    void fillDeviceSampleSize();
+    void selectDeviceSampleSize();
+    void fillDeviceSampleType();
+    void selectDeviceSampleType();
+    void fillDeviceByteOrder();
+    void selectDeviceByteOrder();
 
     Ui::MainWindow *ui;
     QList<InputDevice> m_inputDevices;//список входных аудиоустройств
