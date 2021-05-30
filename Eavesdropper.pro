@@ -17,11 +17,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     InputDevice.cpp \
+    InputDeviceInfo.cpp \
+    InputDeviceManager.cpp \
     main.cpp \
     MainWindow.cpp
 
 HEADERS += \
     InputDevice.h \
+    InputDeviceInfo.h \
+    InputDeviceManager.h \
     MainWindow.h
 
 FORMS += \
